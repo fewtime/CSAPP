@@ -163,7 +163,13 @@ int getByte(int x, int n) {
  *   Rating: 3
  */
 int logicalShift(int x, int n) {
-  return 2;
+    int mask;
+
+    mask = ~(1 << 31);
+    // mask >> (n - 1);
+    mask = ((mask >> n) << 1) + 1;
+
+    return (x >> n) & mask;
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -173,7 +179,33 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int bitCount(int x) {
-  return 2;
+    int b1, b2, b3, b4, b5;
+
+    // b1 =  0x55555555
+    b1 = 0x55 | (0x55 << 8);
+    b1 = b1 | (b1 << 16);
+
+    // b2 = 0x33333333
+    b2 = 0x33 | (0x33 << 8);
+    b2 = b2 | (b2 << 16);
+
+    // b3 = 0x0f0f0f0f
+    b3 = 0x0f | (0x0f << 8);
+    b3 = b3 | (b3 << 16);
+
+    // b4 = 0x00ff00ff
+    b4 = 0xff | (0xff << 16);
+
+    // b5 = 0x0000ffff
+    b5 = 0xff | (0xff << 8);
+
+    x = (x & b1) + ( (x >> 1) & b1 );
+    x = (x & b2) + ( (x >> 2) & b2 );
+    x = (x & b3) + ( (x >> 4) & b3 );
+    x = (x & b4) + ( (x >> 8) & b4 );
+    x = (x & b5) + ( (x >> 16) & b5);
+
+    return x;
 }
 /*
  * bang - Compute !x without using !
@@ -204,7 +236,9 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+    // shiftNumber = 32 - n;
+    int shiftNumber = 32 + (~n + 1);
+    return !( ( (x << shiftNumber) >> shiftNumber ) ^ x );
 }
 /*
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -247,7 +281,15 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+    int r, sing_x, sing_y;
+
+    sing_x = (x >> 31) & 1;
+    sing_y = (y >> 31) & 1;
+
+    r = !(sing_y ^ sing_x) & ( ( (x + ~y) >> 31 ) & 1);
+    r = r | (!sing_y & sing_x);
+
+    return r;
 }
 /*
  * ilog2 - return floor(log base 2 of x), where x > 0
