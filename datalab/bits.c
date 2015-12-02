@@ -203,9 +203,9 @@ int bitCount(int x) {
     x = (x & b2) + ( (x >> 2) & b2 );
     x = (x & b3) + ( (x >> 4) & b3 );
     x = (x & b4) + ( (x >> 8) & b4 );
-    x = (x & b5) + ( (x >> 16) & b5);
+    x = (x & b5) + ( (x >> 16) & b5 );
 
-    return x;
+	return x;
 }
 /*
  * bang - Compute !x without using !
