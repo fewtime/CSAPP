@@ -1,0 +1,63 @@
+phase_1:
+phase_2: a[i] + a[i] == a[i + 1
+phase_3:
+phase_4: unknow fun4
+phase_5: base: 9 f e 5 6 
+calculate base:
+int main(void)
+{
+    // char *table = "maduiersnfotvbylSo you think you can stop the bomb with ctrl-c, do you?";
+    char *table = "maduiersnfotvbyl";
+    char *target = "flyers";
+
+    for (int i = 0; i < strlen(target); ++i) {
+        for (int k = 0; k < strlen(table); ++k) {
+            if (table[k] == target[i]) {
+                printf("%c, %d, %x\n", target[i], k, k);
+            }
+        }
+    }
+
+    return 0;
+}
+phase_6:
+0x401114-0x401151: judge the same number in inputs, if exists, the program is bomb;
+0x401160-0x40116d: 7 - input[i];
+0x6032d0: get the global value(x/96x: 0x6032d0);
+get the table:
+    array[0]=node3=0x39c
+    array[2]=node4=0x2b3
+    array[1]=node5=0x1dd
+    array[3]=node6=0x1bb
+    array[4]=node1=0x14c
+    array[5]=node2=0x0a8
+decreased: node3 > node4 > node5 > node6 > node1 > node2
+because of 7 - input_index = final index
+so final solution: 4 3 2 1 6 5
+
+secret_phase:
+Tree:(From .data (n[i][k]) )
+              36
+           /      \
+          8        50
+         / \       / \
+        6   22    45   107
+       / \ / \    / \   / \
+      1  7 20 45 40 47 99 1001
+
+Because return = 2
+
+	int num = strtol(srt, 0, 10);
+	if(num > 1001) explode_bomb();
+	if(fun7(n1, num) != 7) explode_bomb();
+ 
+	int fun7(struct tree_node * root, int num) {
+		if(root == null) return -1;
+		if(root->value == num) return 0;
+		else if(root->value > num) return 2 * fun7(root->left, num);
+		else return 2 * fun7(root->right, num) + 1;
+	}
+
+So step: left -> right = 22
+        left:  2x = 2; x = 1
+        right: 2x+1 = 1; x = 0
