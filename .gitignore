@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/emacs,vim,linux
+# Created by https://www.gitignore.io/api/emacs,vim,linux,c
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -53,4 +53,39 @@ Session.vim
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+
+
+### C ###
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
 
