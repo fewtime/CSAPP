@@ -1,0 +1,56 @@
+
+bufbomb:     file format elf32-i386
+
+
+Disassembly of section .bss:
+
+0804d0e0 <stderr@@GLIBC_2.0>:
+ 804d0e0:	00 00 00 00                                         ....
+
+0804d0e4 <stdin@@GLIBC_2.0>:
+ 804d0e4:	00 00 00 00                                         ....
+
+0804d0e8 <optarg@@GLIBC_2.0>:
+ 804d0e8:	00 00 00 00                                         ....
+
+0804d0ec <completed.6609>:
+ 804d0ec:	00 00 00 00                                         ....
+
+0804d0f0 <global_save_stack>:
+ 804d0f0:	00 00 00 00                                         ....
+
+0804d0f4 <global_offset>:
+ 804d0f4:	00 00 00 00                                         ....
+
+0804d0f8 <global_nitro>:
+ 804d0f8:	00 00 00 00                                         ....
+
+0804d0fc <gets_cnt>:
+ 804d0fc:	00 00 00 00                                         ....
+
+0804d100 <global_value>:
+ 804d100:	00 00 00 00                                         ....
+
+0804d104 <success>:
+ 804d104:	00 00 00 00                                         ....
+
+0804d108 <cookie>:
+ 804d108:	00 00 00 00                                         ....
+
+0804d10c <infile>:
+ 804d10c:	00 00 00 00                                         ....
+
+0804d110 <autograde>:
+ 804d110:	00 00 00 00                                         ....
+
+0804d114 <notify>:
+ 804d114:	00 00 00 00                                         ....
+
+0804d118 <userid>:
+	...
+
+0804d120 <stack_top>:
+	...
+
+0804d140 <gets_buf>:
+	...

